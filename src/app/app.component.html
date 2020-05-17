@@ -1,0 +1,23 @@
+<div>
+
+  <div class="containter">
+    <div>
+      <input [(ngModel)]="newTask">
+      <button (click)="add()">Dodaj</button>
+    </div>
+  </div>
+
+  <div class="containter">
+    <div>
+      <ul>
+        <li *ngFor="let task of taskList">
+          {{task}}
+        </li>
+      </ul>
+    </div>
+    <div>
+      Zadania wykonane
+    </div>
+  </div>
+
+</div>
