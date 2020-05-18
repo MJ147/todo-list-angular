@@ -1,10 +1,7 @@
 <div>
 
   <div class="containter">
-    <div>
-      <input [(ngModel)]="newTask">
-      <button (click)="add()">Dodaj</button>
-    </div>
+    <app-add-task (emitTask)="add($event)"></app-add-task>
   </div>
 
   <div class="containter">
