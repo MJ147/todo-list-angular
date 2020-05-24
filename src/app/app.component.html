@@ -6,26 +6,10 @@
 
   <div class="containter">
     <div>
-      <ng-container *ngIf="taskList.length > 0; else noTask">
-      <ul>
-        <li *ngFor="let task of taskList">
-          {{task}}
-          <button (click)="remove(task)">Usuń</button>
-          <button (click)="done(task)">Zrobione</button>
-        </li>
-      </ul>
-    </ng-container>
-    <ng-template #noTask>
-      <p>brak zadań, masz czas wolny</p>
-    </ng-template>
+      <app-todo-task [taskList]="taskList" (emitDone)="done($event)" (emitRemove)="remove($event)"></app-todo-task>
     </div>
     <div>
-      <P>Wykonane zadania: {{taskDone.length}}</P>
-      <ul>
-        <li *ngFor="let task of taskDone">
-          {{task}}
-        </li>
-      </ul>
+      <app-done-task [taskDone]="taskDone"></app-done-task>
     </div>
   </div>
 
