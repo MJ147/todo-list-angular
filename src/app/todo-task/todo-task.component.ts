@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { TaskService } from '../services/tasks.service';
 
 @Component({
   selector: 'app-todo-task',
@@ -7,28 +8,27 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class TodoTaskComponent implements OnInit {
 
-  @Input()
-  taskList = [];
-  @Output()
-  emitDone = new EventEmitter<string>();
-  @Output()
-  emitRemove = new EventEmitter<string>();
+  tasksList = [];
 
-  constructor() { }
+  constructor(private taskService: TaskService) {
+    this.taskService.getTasksListObs().subscribe((tasks: Array<string>) => {
+      this.tasksList = tasks;
+    })
+  }
 
   ngOnInit(): void {
   }
 
   remove(task: string) {
-    this.emitRemove.emit(task);
+    this.taskService.remove(task);
   }
 
   done(task: string) {
-    this.emitDone.emit(task);
+    this.taskService.done(task);
   }
 
-  getColor(): string{
-    return this.taskList.length >= 5 ? 'red' : 'green'
+  getColor(): string {
+    return this.tasksList.length >= 5 ? 'red' : 'green'
   }
 
 }
