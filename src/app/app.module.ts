@@ -9,6 +9,7 @@ import { TaskService } from './services/tasks.service';
 import { CheckedDirective } from './shered/checked.directive';
 import { DateDirective } from './shered/date.directive';
 import { TransformTaskPipe } from './shered/transform-task.pipe';
+import { SortNamePipe } from './shered/sort-name.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TransformTaskPipe } from './shered/transform-task.pipe';
     DoneTaskComponent,
     CheckedDirective,
     DateDirective,
-    TransformTaskPipe
+    TransformTaskPipe,
+    SortNamePipe
   ],
   imports: [
     BrowserModule,

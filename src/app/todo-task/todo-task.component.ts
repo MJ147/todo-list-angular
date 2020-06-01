@@ -13,7 +13,7 @@ export class TodoTaskComponent implements OnInit {
 
   constructor(private taskService: TaskService) {
     this.taskService.getTasksListObs().subscribe((tasks: Array<Task>) => {
-      this.tasksList = tasks;
+      this.tasksList = tasks.slice();
     })
   }
 
