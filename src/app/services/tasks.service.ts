@@ -5,43 +5,39 @@ import { Task } from '../model/task';
 @Injectable()
 export class TaskService {
 
-    private tasksList: Array<Task> = [];
-    private tasksDone: Array<Task> = [];
 
     private tasksListObs = new BehaviorSubject<Array<Task>>([]);
-    private tasksDoneObs = new BehaviorSubject<Array<Task>>([]);
 
     constructor() {
-        this.tasksList = [
+        const tasksList = [
             { name: 'Sprzątanie', created: new Date().toLocaleString(), isDone: false },
             { name: 'Nauka', created: new Date().toLocaleString(), isDone: false },
             { name: 'Zmywanie', created: new Date().toLocaleString(), isDone: false },
-            { name: 'Zakupy', created: new Date().toLocaleString(), isDone: false }
+            { name: 'Zakupy', created: new Date().toLocaleString(), isDone: false },
+            { name: 'Odkurzanie', created: new Date().toLocaleString(), end: new Date().toLocaleString(), isDone: true }
         ];
-        this.tasksListObs.next(this.tasksList);
+        this.tasksListObs.next(tasksList);
     }
 
     add(task: Task) {
-        this.tasksList.push(task);
-        this.tasksListObs.next(this.tasksList);
+        const list = this.tasksListObs.getValue();
+        list.push(task);
+        this.tasksListObs.next(list);
     }
 
     remove(task: Task) {
-        this.tasksList = this.tasksList.filter(e => e !== task);
-        this.tasksListObs.next(this.tasksList);
+        const list = this.tasksListObs.getValue().filter(e => e !== task);
+        this.tasksListObs.next(list);
     }
 
     done(task: Task) {
-        this.tasksDone.push(task);
-        this.remove(task);
-        this.tasksDoneObs.next(this.tasksDone);
+        task.end = new Date().toLocaleDateString();
+        task.isDone = true;
+        const list = this.tasksListObs.getValue();
+        this.tasksListObs.next(list);
     }
 
     getTasksListObs(): Observable<Array<Task>> {
         return this.tasksListObs.asObservable();
-    }
-
-    getTasksDoneObs(): Observable<Array<Task>> {
-        return this.tasksDoneObs.asObservable();
     }
 }
